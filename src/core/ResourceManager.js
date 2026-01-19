@@ -133,9 +133,9 @@ export class ResourceManager {
         ];
 
         const hdrTextures = [
-            { path: 'cosmos/HDR_rich_blue_nebulae_2.hdr', name: 'nebula_blue' },
-            { path: 'cosmos/HDR_rich_multi_nebulae_2.hdr', name: 'nebula_multi' },
-            { path: 'cosmos/HDR_silver_and_gold_nebulae.hdr', name: 'nebula_gold' }
+            { path: 'https://cr2.zombie35201.top/solar-demo/HDR_rich_blue_nebulae_2.hdr', name: 'nebula_blue' },
+            { path: 'https://cr2.zombie35201.top/solar-demo/HDR_rich_multi_nebulae_2.hdr', name: 'nebula_multi' },
+            { path: 'https://cr2.zombie35201.top/solar-demo/HDR_silver_and_gold_nebulae.hdr', name: 'nebula_gold' }
         ];
 
         this.totalItems = planetTextures.length + hdrTextures.length;
