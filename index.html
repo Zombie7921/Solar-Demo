@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Solar Cinder - Immersive Solar System Visualization">
+    <title>Solar Cinder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            overflow: hidden;
+            background: #000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        #app {
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a15 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.8s ease-out;
+        }
+        
+        #loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loading-title {
+            font-size: 3rem;
+            font-weight: 300;
+            color: #fff;
+            letter-spacing: 0.5em;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 30px rgba(100, 150, 255, 0.5);
+        }
+        
+        .loading-bar-container {
+            width: 300px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .loading-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #4a9eff, #a855f7);
+            border-radius: 2px;
+            transition: width 0.3s ease-out;
+        }
+        
+        .loading-text {
+            margin-top: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+        }
+        
+        /* UI Overlay */
+        #ui-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        .ui-top {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .ui-title {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+        
+        .ui-subtitle {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.1em;
+        }
+        
+        .ui-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.75rem;
+            line-height: 1.8;
+        }
+        
+        .ui-controls kbd {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+        
+        .ui-fps {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.75rem;
+            font-family: monospace;
+        }
+        
+        .ui-planet-name {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.25rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .ui-planet-name.visible {
+            opacity: 1;
+        }
+        
+        /* Hide UI toggle */
+        .ui-hidden .ui-top,
+        .ui-hidden .ui-controls,
+        .ui-hidden .ui-planet-name {
+            opacity: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-screen">
+        <div class="loading-title">SOLAR CINDER</div>
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="loading-bar"></div>
+        </div>
+        <div class="loading-text" id="loading-text">Initializing...</div>
+    </div>
+    
+    <div id="app"></div>
+    
+    <div id="ui-overlay">
+        <div class="ui-top">
+            <div class="ui-title">SOLAR CINDER</div>
+            <div class="ui-subtitle">SOLAR SYSTEM VISUALIZATION</div>
+        </div>
+        
+        <div class="ui-controls">
+            <div><kbd>Drag</kbd> Rotate view</div>
+            <div><kbd>Scroll</kbd> Zoom in/out</div>
+            <div><kbd>Click</kbd> Focus on planet</div>
+            <div><kbd>ESC</kbd> Return to overview</div>
+            <div><kbd>← →</kbd> Change nebula</div>
+            <div><kbd>H</kbd> Toggle UI</div>
+        </div>
+        
+        <div class="ui-fps" id="fps-counter">60 FPS</div>
+        
+        <div class="ui-planet-name" id="planet-name"></div>
+    </div>
+    
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
